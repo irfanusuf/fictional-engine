@@ -1,0 +1,19 @@
+.navbar {
+  background-color: rgb(2, 2, 37);
+  display: flex;
+
+  > ul {
+    list-style-type: none;
+    display: flex;
+
+    > li {
+   
+      margin-right: 20px;
+
+      >a{
+        color: aliceblue;
+        text-decoration: none;
+      }
+    }
+  }
+}
