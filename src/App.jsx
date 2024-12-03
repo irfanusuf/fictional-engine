@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  useContext, useEffect} from "react";
 
 import Navbar from "./components/sharedComponents/Navbar";
 import Footer from "./components/sharedComponents/Footer";
@@ -10,26 +10,42 @@ import NoPage from "./components/pages/NoPage";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login";
 import UserProfile from "./components/pages/UserProfile";
+import { Context } from "./context/Store";
+
 
 // it is a special function  returning xml data which is looking like html
 // function component
+
+  
+
 const App = () => {
+
+
+  const {getUserFrombackend} = useContext(Context)
+
+  useEffect(() => {
+    getUserFrombackend();
+  }, []);
+
   return (
+    
+
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <div className="main">
         <Routes>
-          <Route path="*" element = {<NoPage/>} />
-          <Route path="/"  element={<Home/>} />
-          <Route path="/contact" element={<Contact/>}  />
-          <Route path="/about" element={<About/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/userProfile" element={<UserProfile/>} />
-        </Routes> 
+          <Route path="*" element={<NoPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/userProfile" element={<UserProfile />}/>
+        </Routes>
       </div>
       <Footer />
     </BrowserRouter>
+
   );
 };
 
