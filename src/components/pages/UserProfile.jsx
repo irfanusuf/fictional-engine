@@ -2,12 +2,14 @@
 import React, { useContext } from "react";
 import Card from "../sharedComponents/Card";
 import { Context } from "../../context/Store";
+import IsAuthorised from "../../authorization/IsAuthorised";
 
 
 const UserProfile = () => {
 
+   IsAuthorised()
 
-  const {username , email} = useContext(Context)
+  const {user} = useContext(Context)
  
 
   return (
@@ -16,11 +18,11 @@ const UserProfile = () => {
 
       <p>
     
-        username : <span> {username} </span>{" "}
+        username : <span> {user.username} </span>{" "}
       </p>
       <p>
        
-        email : <span> {email} </span>{" "}
+        email : <span> {user.email} </span>{" "}
       </p>
 
 
