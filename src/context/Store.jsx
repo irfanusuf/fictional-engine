@@ -3,6 +3,7 @@ import App from "../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import api from "../utils/axiosInstance";
 
 export const Context = createContext();
 
@@ -39,9 +40,12 @@ const Store = () => {
       const url = "http://localhost:4001/user/register";
       const res = await axios.post(url, formaData);
 
-      if (res.status === 200 && res.data.message === "User Created Sucessfully!") {
+      if (
+        res.status === 200 &&
+        res.data.message === "User Created Sucessfully!"
+      ) {
         toast.success(res.data.message);
-      }else{
+      } else {
         toast.error(res.data.message);
       }
     } catch (error) {
@@ -60,16 +64,29 @@ const Store = () => {
         const token = res.data.payload;
         localStorage.setItem("token", token);
         navigate("/userProfile");
-      }
-      else{
+      } else {
         toast.error(res.data.message);
       }
     } catch (error) {
-      if(error.response.status ===500){
+      if (error.response.status === 500) {
         // toast.error(error.message)        // error.message is a generic error message
-        toast.error("Server Error!")  
+        toast.error("Server Error!");
       }
       console.log("errorhai:" + error);
+    }
+  };
+
+  const isTokenAuthenticated = async (token) => {
+    try {
+      const res = await api.get(`/token/verify/?token=${token}`);
+      if (res.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   };
 
@@ -81,6 +98,7 @@ const Store = () => {
         toggleDarkMode,
         handleRegister,
         handleLogin,
+        isTokenAuthenticated,
       }}
     >
       <App />

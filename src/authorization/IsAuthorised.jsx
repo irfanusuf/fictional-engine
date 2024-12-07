@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../context/Store";
 
 const IsAuthorised = () => {
+  const navigate = useNavigate();
+  const { isTokenAuthenticated } = useContext(Context);
 
-  const navigate = useNavigate()
+  const token = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token")
+  useEffect(() => {
+    (async () => {
+      if (!token) {
+        return navigate("/login");
+      } else {
+        const auth = await isTokenAuthenticated(token);
+        console.log("auth :" + auth);
+        if (!auth) {
+          return navigate("/login");
+        }
+      }
+    })();
+  }, [token, isTokenAuthenticated, navigate]);
+};
 
-
-    useEffect(()=>{
-
-        if(!token) {
-            return  navigate("/login")
-          }
-
-    })
-    
-
-
-}
-
-export default IsAuthorised
+export default IsAuthorised;
