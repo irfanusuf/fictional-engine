@@ -7,8 +7,13 @@ import api from "../utils/axiosInstance";
 
 export const Context = createContext();
 
+
+
 const Store = () => {
+
   const token = localStorage.getItem("token");
+
+
   const navigate = useNavigate();
 
   const [store, setStore] = useState({
@@ -90,6 +95,42 @@ const Store = () => {
     }
   };
 
+  const deleteProfile = async(formaData) => {
+
+    try {
+       //  const url= ""
+
+      // const response = await fetch(url , {
+
+      //   method : "DELETE",
+      //   headers:{},
+      //   body : {}
+      
+
+      // })
+
+      const res = await api.post(`/user/delete?token=${token}` , formaData)
+
+      if(res.status === 200){
+        toast.success(res.data.message)
+      }
+      else{
+        toast.error(res.data.message)
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  
+
+  };
+
+
+
+
+  
+
   return (
     <Context.Provider
       value={{
@@ -99,9 +140,13 @@ const Store = () => {
         handleRegister,
         handleLogin,
         isTokenAuthenticated,
+        deleteProfile
       }}
     >
       <App />
+
+
+
     </Context.Provider>
   );
 };

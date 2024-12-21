@@ -1,6 +1,35 @@
 .navbar {
   background-color: rgb(2, 2, 37);
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+
+
+
+>.hamburger{
+  display: none;
+  >span{
+    color: white;
+    padding-left: 50px;
+    font-size: 24px;
+  }
+
+}
+
+
+>.sidebar{
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 50px;
+  width: 250px;
+  height: 800px;
+  background-color: aliceblue;
+  color: black;
+}
+
+
 
   > ul {
     list-style-type: none;
@@ -16,4 +45,53 @@
       }
     }
   }
+
+
+
+  > .userProfile{
+
+    padding-right: 50px;
+
+
+
+
+    >button{
+      background-color: blue;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      padding: 5px 10px;
+      opacity: 0.8;
+    }
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
+
+
+
+@media screen and (max-width : 600px) {
+
+
+  .navbar{
+
+
+    >ul{
+      display: none;
+    }
+
+
+    >.sidebar{
+      display: block;
+    }
+
+
+    >.hamburger{
+      display: block;
+    }
+  }
+
+
+  
 }
